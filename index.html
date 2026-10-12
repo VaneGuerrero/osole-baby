@@ -5,12 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>O'Sole Baby · ¡Hazte una foto!</title>
 <style>
-  :root { --bg:#fdf1f7; --ink:#0b3d91; --pink:#e6197d; }
+  :root { --bg:#ecf7f6; --ink:#0b3d91; --pink:#e6197d; }
   * { box-sizing:border-box; }
   html, body { height:100%; margin:0; }
   body { background:var(--bg); color:var(--ink); font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
          display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
          padding:env(safe-area-inset-top) 12px env(safe-area-inset-bottom); }
+  /* Fondo decorativo sutil */
+  #bg { position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;
+        background:linear-gradient(#e6f4f3 0%, #f1faf8 55%, #e9f5ec 100%); }
+  #bg svg { position:absolute; display:block; }
+  #bg .sun    { top:-5vmin; left:-5vmin; width:clamp(110px,26vmin,240px); opacity:.5; }
+  #bg .cloud1 { top:7vh; right:3vw; width:clamp(90px,22vmin,200px); opacity:.55; }
+  #bg .cloud2 { top:38vh; left:2vw; width:clamp(60px,14vmin,130px); opacity:.45; }
+  #bg .cloud3 { top:58vh; right:1vw; width:clamp(70px,16vmin,150px); opacity:.45; }
+  #bg .star   { width:clamp(10px,2.2vmin,18px); opacity:.55; }
+  #bg .rainbow{ bottom:9vh; left:-2vw; width:clamp(90px,20vmin,190px); opacity:.35; }
+  #bg .hills  { bottom:0; left:0; width:100%; height:15vh; opacity:.4; }
+  #bg .leaves { bottom:-1vh; right:-1vw; width:clamp(90px,22vmin,210px); opacity:.35; }
+  #bg .leaf2  { bottom:-1vh; left:-1vw; width:clamp(70px,16vmin,150px); opacity:.3; }
+  #bg .daisy  { bottom:4vh; left:18vw; width:clamp(18px,4vmin,34px); opacity:.55; }
   h1 { font-size:1.05rem; margin:0; text-align:center; }
   #stage { position:relative; height:min(60dvh, 156vw); aspect-ratio:9/16; border-radius:14px; overflow:hidden;
            background:#fff; box-shadow:0 6px 24px rgba(11,61,145,.18); touch-action:pan-y; }
@@ -39,6 +53,20 @@
 </style>
 </head>
 <body>
+<div id="bg" aria-hidden="true">
+  <svg class="sun" viewBox="0 0 200 200"><circle cx="70" cy="70" r="70" fill="#fcd966"/>
+    <g fill="none" stroke="#f8b62d" stroke-width="7"><circle cx="70" cy="70" r="52"/><circle cx="70" cy="70" r="34"/><circle cx="70" cy="70" r="16"/></g>
+    <g stroke="#fcd966" stroke-width="9" stroke-linecap="round"><line x1="155" y1="62" x2="195" y2="62"/><line x1="140" y1="120" x2="170" y2="145"/><line x1="70" y1="155" x2="70" y2="195"/></g></svg>
+  <svg class="cloud1" viewBox="0 0 175 70"><path d="M8 62 Q8 42 30 42 Q36 20 62 26 Q78 4 104 22 Q130 14 140 40 Q166 40 166 62 Z" fill="#b8e0de"/></svg>
+  <svg class="cloud2" viewBox="0 0 175 70"><path d="M8 62 Q8 42 30 42 Q36 20 62 26 Q78 4 104 22 Q130 14 140 40 Q166 40 166 62 Z" fill="#b8e0de"/></svg>
+  <svg class="cloud3" viewBox="0 0 175 70"><path d="M8 62 Q8 42 30 42 Q36 20 62 26 Q78 4 104 22 Q130 14 140 40 Q166 40 166 62 Z" fill="#b8e0de"/></svg>
+  <svg class="star" style="top:22vh;left:14vw" viewBox="0 0 20 20"><polygon fill="#a9d9d6" points="10,0 12.9,6.9 20,7.6 14.5,12.4 16.2,19.5 10,15.7 3.8,19.5 5.5,12.4 0,7.6 7.1,6.9"/></svg><svg class="star" style="top:12vh;left:40vw" viewBox="0 0 20 20"><polygon fill="#a9d9d6" points="10,0 12.9,6.9 20,7.6 14.5,12.4 16.2,19.5 10,15.7 3.8,19.5 5.5,12.4 0,7.6 7.1,6.9"/></svg><svg class="star" style="top:30vh;right:12vw" viewBox="0 0 20 20"><polygon fill="#a9d9d6" points="10,0 12.9,6.9 20,7.6 14.5,12.4 16.2,19.5 10,15.7 3.8,19.5 5.5,12.4 0,7.6 7.1,6.9"/></svg><svg class="star" style="top:48vh;right:30vw" viewBox="0 0 20 20"><polygon fill="#a9d9d6" points="10,0 12.9,6.9 20,7.6 14.5,12.4 16.2,19.5 10,15.7 3.8,19.5 5.5,12.4 0,7.6 7.1,6.9"/></svg><svg class="star" style="top:66vh;left:8vw" viewBox="0 0 20 20"><polygon fill="#a9d9d6" points="10,0 12.9,6.9 20,7.6 14.5,12.4 16.2,19.5 10,15.7 3.8,19.5 5.5,12.4 0,7.6 7.1,6.9"/></svg><svg class="star" style="top:80vh;right:18vw" viewBox="0 0 20 20"><polygon fill="#a9d9d6" points="10,0 12.9,6.9 20,7.6 14.5,12.4 16.2,19.5 10,15.7 3.8,19.5 5.5,12.4 0,7.6 7.1,6.9"/></svg>
+  <svg class="rainbow" viewBox="0 0 200 100"><g fill="none" stroke-width="11"><path d="M10 100 A90 90 0 0 1 190 100" stroke="#f28b82"/><path d="M21 100 A79 79 0 0 1 179 100" stroke="#e8c84a"/><path d="M32 100 A68 68 0 0 1 168 100" stroke="#2bb8b0"/></g></svg>
+  <svg class="hills" viewBox="0 0 400 100" preserveAspectRatio="none"><path d="M0 55 Q90 10 200 45 T400 30 L400 100 L0 100 Z" fill="#7cc89a"/><path d="M0 75 Q120 40 240 70 T400 60 L400 100 L0 100 Z" fill="#56b780"/></svg>
+  <svg class="leaves" viewBox="0 0 200 160"><path d="M60 160 C50 90 85 30 130 0 C150 60 130 125 60 160 Z" fill="#00574f"/><path d="M90 150 C95 100 120 60 150 40" stroke="#1b9a8f" stroke-width="3" fill="none"/><path d="M110 160 C120 110 170 80 200 90 C190 130 160 155 110 160 Z" fill="#cfdc92"/><path d="M150 160 C160 140 185 120 200 125 C195 145 175 158 150 160 Z" fill="#f28b82"/></svg>
+  <svg class="leaf2" viewBox="0 0 140 130"><path d="M0 130 C0 80 30 40 70 30 C80 70 60 115 0 130 Z" fill="#cfdc92"/><path d="M20 130 C40 100 70 80 110 85 C100 115 70 130 20 130 Z" fill="#00574f"/></svg>
+  <svg class="daisy" viewBox="0 0 40 40"><g fill="#fff"><circle cx="20" cy="8" r="8"/><circle cx="32" cy="20" r="8"/><circle cx="20" cy="32" r="8"/><circle cx="8" cy="20" r="8"/></g><circle cx="20" cy="20" r="6" fill="#fcd966"/></svg>
+</div>
   <h1>¡Elige tu personaje y hazte una foto!</h1>
 
   <div id="stage">
