@@ -84,6 +84,7 @@
   #done button { width:100%; }
   button { font:inherit; font-weight:700; border:0; border-radius:999px; padding:12px 24px;
            background:var(--pink); color:#fff; cursor:pointer; }
+  button.ig { background:var(--teal); }
   button.sec { box-shadow:none; }
   button.sec { background:#fff; color:#e0345c; border:2px solid var(--pink); }
   button { box-shadow:0 3px 10px rgba(255,81,118,.28); transition:transform .12s; }
@@ -138,7 +139,8 @@
   </div>
   <div class="row" id="done" hidden>
     <button id="retry" class="sec">Repite la foto si no te gustó</button>
-    <button id="points">Descarga tu foto y suma puntos</button>
+    <button id="download">Descarga y guarda tu foto</button>
+    <button id="points" class="ig">Sube tu foto y suma puntos</button>
   </div>
 
 <script>
@@ -259,29 +261,25 @@ function shoot() {
     result.style.display = "block";
     $("prev").hidden = $("next").hidden = thumbs.hidden = true;
     $("live").hidden = true; $("done").hidden = false;
-    msg.textContent = "¿Te gusta? Descárgala y suma puntos.";
+    msg.textContent = "¿Te gusta? Descárgala y súbela para sumar puntos.";
     stream.getTracks().forEach(t => t.stop());
   }, "image/jpeg", 0.93);
 }
 
 function filename() { return "osole-baby-" + FRAMES[idx].id + ".jpg"; }
 
-const POINTS_URL = "https://app.supertize.com/content/763755";
-let going = false;
-
-/* Descarga la foto y, un instante después, abre el enlace de puntos en la misma pestaña */
-function downloadAndGo() {
-  if (going) return; going = true;
+function download() {
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob); a.download = filename();
   document.body.appendChild(a); a.click(); a.remove();
-  msg.textContent = "¡Foto descargada! Te llevamos a sumar puntos…";
-  $("points").disabled = true;
-  setTimeout(() => { window.location.href = POINTS_URL; }, 1500);   // da tiempo a que se guarde la foto
+  msg.textContent = "¡Foto descargada! Si no la ves, mantén presionada la imagen y elige «Guardar imagen».";
 }
 
+const POINTS_URL = "https://app.supertize.com/content/763755";
+function goPoints() { window.location.href = POINTS_URL; }   // misma pestaña
+
 function retry() {
-  finished = false; going = false; $("points").disabled = false;
+  finished = false;
   result.style.display = "none";
   $("prev").hidden = $("next").hidden = thumbs.hidden = false;
   $("done").hidden = true; $("live").hidden = false;
@@ -291,7 +289,8 @@ function retry() {
 $("start").onclick = startCam;
 $("shoot").onclick = shoot;
 $("flip").onclick = () => { facing = facing === "user" ? "environment" : "user"; startCam(); };
-$("points").onclick = downloadAndGo;
+$("download").onclick = download;
+$("points").onclick = goPoints;
 $("retry").onclick = retry;
 select(0);
 
