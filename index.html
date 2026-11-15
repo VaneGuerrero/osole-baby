@@ -159,7 +159,7 @@ const APP_VERSION = "1.2.0", APP_DATE = "2026-11-11";
 const W = 1080, H = 1920;                 // tamaño de cada marco
 const ZOOM = 0.6;                         // cuánto de la cámara cabe en el círculo (menor = más zoom)
 const POINTS_URL = (() => { const v = new URLSearchParams(location.search).get("volver");
-  return v && /^https:\/\//.test(v) ? v : "https://app.supertize.com/content/763755"; })();
+  return v && /^https:\/\//.test(v) ? v : "https://app.supertize.com/content/763755?embedded_project=true"; })();
 const IOS_SAVE_WITH_SHARE = false;        // false = en iPhone también descarga directa (Archivos → Descargas); true = menú «Guardar imagen»
 
 /* Marcos: hx, hy = centro del círculo del rostro; d = diámetro del círculo */
